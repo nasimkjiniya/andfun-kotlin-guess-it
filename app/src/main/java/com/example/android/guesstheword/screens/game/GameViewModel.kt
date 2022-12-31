@@ -3,8 +3,10 @@ package com.example.android.guesstheword.screens.game
 import android.os.CountDownTimer
 import android.text.format.DateUtils
 import android.util.Log
+import android.view.animation.Transformation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import kotlin.concurrent.timer
 
@@ -45,7 +47,6 @@ class GameViewModel : ViewModel() {
 
     // The list of words - the front of the list is the next word to guess
     lateinit var wordList: MutableList<String>
-
 
 
     init {
@@ -107,11 +108,16 @@ class GameViewModel : ViewModel() {
     private fun nextWord() {
         //Select and remove a word from the list
         if (wordList.isEmpty()) {
-            resetList()
+            //resetList()
+            _eventGameFinish.value=true
         }
-        timer.cancel()
-        timer.start()
-        _word.value = wordList.removeAt(0)
+        else
+        {
+            timer.cancel()
+            timer.start()
+            _word.value = wordList.removeAt(0)
+        }
+
     }
 
     /** Methods for buttons presses **/
