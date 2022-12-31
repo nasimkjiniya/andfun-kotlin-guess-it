@@ -66,6 +66,10 @@ class GameFragment : Fragment() {
             }
         })
 
+        viewModel.newTime.observe(viewLifecycleOwner, Observer { newTime->
+            binding.timerText.text=newTime.toString()
+        })
+
 
         binding.correctButton.setOnClickListener {
             viewModel.onCorrect()
